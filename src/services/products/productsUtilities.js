@@ -21,9 +21,7 @@ const productsFile = join(
   "products.json"
 );
 
-const reviewsFile = join(
-  process.cwd(), 'src/services/reviews/reviews.json'
-)
+const reviewsFile = join(process.cwd(), "src/services/reviews/reviews.json");
 
 export const readProductsFile = async () => {
   return JSON.parse(await fs.readFile(productsFile, "utf8"));
@@ -37,7 +35,7 @@ export const makeNewProduct = (productData) => {
   return {
     ...productData,
     id: uniqid(),
-    createdAt: new Date()
+    createdAt: new Date(),
   };
 };
 
@@ -48,7 +46,7 @@ export const updateProduct = async (productId, newProductData) => {
   products[productToUpdateIndex] = {
     ...products[productToUpdateIndex],
     ...newProductData,
-    updatedAt: new Date()
+    updatedAt: new Date(),
   };
   await writeProductsFile(products);
   return products[productToUpdateIndex];
@@ -77,16 +75,16 @@ export const filterOutProduct = async (idToFilter) => {
 };
 
 export const filterOutReviews = async (idToFilter) => {
-  console.log(idToFilter)
-  const reviews = JSON.parse(await fs.readFile(reviewsFile))
-  console.log(reviews[1].productId)
-  const filteredReviews = reviews.filter((r)=>r.productId === idToFilter)
-  console.log(filteredReviews)
-  return filteredReviews
-}
+  console.log(idToFilter);
+  const reviews = JSON.parse(await fs.readFile(reviewsFile));
+  console.log(reviews[1].productId);
+  const filteredReviews = reviews.filter((r) => r.productId === idToFilter);
+  console.log(filteredReviews);
+  return filteredReviews;
+};
 
 export const filterProductsCategory = async (category) => {
-   let products = await readProductsFile();
-   let filteredProducts = products.filter(p => p.category === category)
-   return filteredProducts
-}
+  let products = await readProductsFile();
+  let filteredProducts = products.filter((p) => p.category === category);
+  return filteredProducts;
+};
