@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import listEndpoints from "express-list-endpoints";
 import reviewsRouter from "./services/reviews/index.js";
+import productsRouter from "./services/products/index.js";
+
 
 const server = express();
 const port = 3001;
