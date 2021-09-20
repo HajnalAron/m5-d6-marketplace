@@ -6,16 +6,24 @@ import {
   updateProduct,
   getProductById,
   filterOutProduct,
-  filterOutReviews
+  filterOutReviews,
+  filterProductsCategory
 } from "./productsUtilities.js";
+import createHttpError from "http-errors"
+import {productsValidationMiddleware} from '../../validation.js'
+import { validationResult } from "express-validator";
 
 
 
 const productsRouter = express.Router();
 
 //Post new product
-productsRouter.post("/", async (req, res, next) => {
+productsRouter.post("/", productsValidationMiddleware,async (req, res, next) => {
   try {
+    const errors = validationResult(req)
+    if(errors){
+      next(createHttpError(400, errors ))
+    }else{
     let products = await readProductsFile();
     let newProduct = makeNewProduct(req.body);
     products.push(newProduct);
@@ -25,6 +33,7 @@ productsRouter.post("/", async (req, res, next) => {
       .send(
         "Product has been successfully created with the id of:" + newProduct.id
       );
+    }
   } catch (error) {
     next(error);
   }
@@ -33,7 +42,10 @@ productsRouter.post("/", async (req, res, next) => {
 //Get every product
 productsRouter.get("/", async (req, res, next) => {
   try {
-    res.status(200).send(await readProductsFile());
+    if(req.query.category){
+      res.status(200).send(await filterProductsCategory(req.query.category))
+    }else{
+    res.status(200).send(await readProductsFile());}
   } catch (error) {
     next(error);
   }
@@ -41,8 +53,13 @@ productsRouter.get("/", async (req, res, next) => {
 
 //Get product by product id
 productsRouter.get("/:productId", async (req, res, next) => {
+  
   try {
-    res.status(200).send(await getProductById(req.params.productId));
+    const product = await getProductById(req.params.productId)
+    if(product){
+    res.status(200).send(product);
+    }
+    else next(createHttpErrors(404, `Product not found with the id of:`+ req.params.productId))
   } catch (error) {
     next(error);
   }

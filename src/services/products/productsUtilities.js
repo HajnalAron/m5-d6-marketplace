@@ -77,7 +77,16 @@ export const filterOutProduct = async (idToFilter) => {
 };
 
 export const filterOutReviews = async (idToFilter) => {
+  console.log(idToFilter)
   const reviews = JSON.parse(await fs.readFile(reviewsFile))
-  const filteredReviews = reviews.filter(r => r.id === idToFilter)
+  console.log(reviews[1].productId)
+  const filteredReviews = reviews.filter((r)=>r.productId === idToFilter)
+  console.log(filteredReviews)
   return filteredReviews
+}
+
+export const filterProductsCategory = async (category) => {
+   let products = await readProductsFile();
+   let filteredProducts = products.filter(p => p.category === category)
+   return filteredProducts
 }

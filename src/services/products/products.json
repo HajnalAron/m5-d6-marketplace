@@ -1,13 +1,1 @@
-[
-  {
-    "name": "test",
-    "description": "test",
-    "brand": "test",
-    "price": "test",
-    "category": "test",
-    "id": "1gezy5igktsi15h2",
-    "createdAt": "2021-09-20T10:21:49.430Z",
-    "imgUrl": "http://localhost:3001/img/productPictures/1gezy5igktsi15h2.png",
-    "updatedAt": "2021-09-20T10:37:28.292Z"
-  }
-]
+[{"name":"test","description":"test","brand":"test","price":"test","category":"test","id":"1gezy5igktsi15h2","createdAt":"2021-09-20T10:21:49.430Z","imgUrl":"http://localhost:3001/img/productPictures/1gezy5igktsi15h2.jpeg","updatedAt":"2021-09-20T13:43:42.618Z"},{"name":"3310","description":"somthing longer","brand":"nokia","price":100,"category":"smartphones","id":"3aij1ct8ktsm12d4","createdAt":"2021-09-20T12:13:43.863Z"},{"name":"test","id":"3aij1dusktspoi8x","createdAt":"2021-09-20T13:55:56.384Z"}]
