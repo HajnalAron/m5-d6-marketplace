@@ -13,9 +13,9 @@ const getReviews = () => JSON.parse(fs.readFileSync(reviewsJSONPath))
 const writeReviews = content => fs.writeFileSync(reviewsJSONPath, JSON.stringify(content))
 
 //1. POST
-reviewsRouter.post("/", (req, res) => {
+reviewsRouter.post("/:productId", (req, res) => {
 try {
-     const newReview = {...req.body, id: uniqid(), createdAt: new Date()}
+     const newReview = {...req.body, productId: req.params.productId,id: uniqid(), createdAt: new Date()}
      const reviews = getReviews()
      reviews.push(newReview)
      writeReviews(reviews)

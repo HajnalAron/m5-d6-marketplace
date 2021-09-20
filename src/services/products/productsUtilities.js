@@ -21,6 +21,10 @@ const productsFile = join(
   "products.json"
 );
 
+const reviewsFile = join(
+  process.cwd(), 'src/services/reviews/reviews.json'
+)
+
 export const readProductsFile = async () => {
   return JSON.parse(await fs.readFile(productsFile));
 };
@@ -68,3 +72,9 @@ export const filterOutProduct = async (idToFilter) => {
   );
   await writeProductsFile(productsFilteredOut);
 };
+
+export const filterOutReviews = async (idToFilter) => {
+  const reviews = JSON.parse(await fs.readFile(reviewsFile))
+  const filteredReviews = reviews.filter(r => r.id === idToFilter)
+  return filteredReviews
+}

@@ -5,8 +5,11 @@ import {
   makeNewProduct,
   updateProduct,
   getProductById,
-  filterOutProduct
+  filterOutProduct,
+  filterOutReviews
 } from "./productsUtilities.js";
+
+
 
 const productsRouter = express.Router();
 
@@ -68,5 +71,14 @@ productsRouter.delete("/:productId", async (req, res, next) => {
     next(error);
   }
 });
+
+//GET Reviews by product id
+productsRouter.get("/:productId/reviews", async (req, res, next) => {
+  try {
+    res.send(await filterOutReviews(req.params.productId))
+  } catch (error) {
+    
+  }
+})
 
 export default productsRouter;
