@@ -17,7 +17,7 @@ const productsRouter = express.Router();
 productsRouter.post("/", async (req, res, next) => {
   try {
     let products = await readProductsFile();
-    let newProduct = makeNewProduct();
+    let newProduct = makeNewProduct(req.body);
     products.push(newProduct);
     await writeProductsFile(products);
     res
@@ -51,7 +51,7 @@ productsRouter.get("/:productId", async (req, res, next) => {
 //Update product
 productsRouter.put("/:productId", async (req, res, next) => {
   try {
-    res.status(200).send(updateProduct(req.params.productId));
+    res.status(200).send(updateProduct(req.params.productId, req.body));
   } catch (error) {
     next(error);
   }
