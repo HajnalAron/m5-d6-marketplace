@@ -14,7 +14,7 @@ const productsRouter = express.Router();
 productsRouter.post("/", async (req, res, next) => {
   try {
     let products = await readProductsFile();
-    let newProduct = makeNewProduct();
+    let newProduct = makeNewProduct(req.body);
     products.push(newProduct);
     await writeProductsFile(products);
     res

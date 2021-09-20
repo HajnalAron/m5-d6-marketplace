@@ -26,7 +26,7 @@ export const readProductsFile = async () => {
 };
 
 export const writeProductsFile = async (dataToWrite) => {
-  await fs.readFile(productsFile, JSON.stringify(dataToWrite));
+  await fs.writeFile(productsFile, JSON.stringify(dataToWrite));
 };
 
 export const makeNewProduct = (productData) => {
