@@ -22,7 +22,7 @@ const productsFile = join(
 );
 
 export const readProductsFile = async () => {
-  return JSON.parse(await fs.readFile(productsFile));
+  return JSON.parse(await fs.readFile(productsFile, "utf8"));
 };
 
 export const writeProductsFile = async (dataToWrite) => {
@@ -39,7 +39,8 @@ export const makeNewProduct = (productData) => {
 
 export const updateProduct = async (productId, newProductData) => {
   let products = await readProductsFile();
-  let productToUpdateIndex = getProductIndexById(productId);
+  let productToUpdateIndex = await getProductIndexById(productId);
+  console.log(productToUpdateIndex);
   products[productToUpdateIndex] = {
     ...products[productToUpdateIndex],
     ...newProductData,
@@ -57,8 +58,10 @@ export const getProductById = async (idToFind) => {
 
 export const getProductIndexById = async (idToFind) => {
   let products = await readProductsFile();
-  let productToFind = products.findIndex((product) => product.id === idToFind);
-  return productToFind;
+  let productToFindIndex = products.findIndex(
+    (product) => product.id === idToFind
+  );
+  return productToFindIndex;
 };
 
 export const filterOutProduct = async (idToFilter) => {
